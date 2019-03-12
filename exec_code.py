@@ -39,7 +39,7 @@ def execute_file(input_file: str, code_file: str, output_file: str, name: str):
 
 def run_code(project_name: str):
     print(f'----> Project {repr(project_name)} starting...')
-    os.chdir(project_name)
+    os.chdir(os.path.join('resources', project_name))
     if os.path.exists('output'):
         shutil.rmtree('output')
     os.mkdir('output')
@@ -51,7 +51,7 @@ def run_code(project_name: str):
         execute_file(input_file, 'code.py', out_file, project_name)
     print('=' * 100)
     print(f'----> Project {repr(project_name)} done.')
-    os.chdir('..')
+    os.chdir(os.path.join('..', '..'))
 
 
 def main():
