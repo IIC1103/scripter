@@ -39,7 +39,7 @@ def execute_file(input_file: str, code_file: str, output_file: str, name: str):
             txt = f.read()
 
         with open(output_file, encoding='utf-8', mode='w') as f:
-            f.write(txt.strip())
+            f.write(txt.rstrip())
         print('=' * 45, 'COMPLETE', '=' * 45)
         print('=' * 100)
         sys.stdin = sys.__stdin__
