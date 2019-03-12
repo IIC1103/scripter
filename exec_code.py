@@ -3,6 +3,8 @@ __author__ = 'Nicolas Quiroz'
 
 from RestrictedPython import compile_restricted, RestrictingNodeTransformer
 from contextlib import redirect_stdout
+from zipfile import ZipFile
+
 import sys
 import os
 import shutil
@@ -56,8 +58,14 @@ def run_code(project_name: str):
         input_file = os.path.join('input', input_file_name)
         execute_file(input_file, 'code.py', out_file, project_name)
     print('=' * 100)
-    print(f'----> Project {repr(project_name)} done.')
+    print(f'----> Project {repr(project_name)} done. Compressing...')
+
+    with ZipFile('tests_cases.zip', mode='w') as zip_:
+        for folder in ['input', 'output']:
+            for file_ in os.listdir(folder):
+                zip_.write(os.path.join(folder, file_), os.path.join(folder, file_))
     os.chdir(os.path.join('..', '..'))
+    print(f'----> Project {repr(project_name)} compressed.')
 
 
 def main():
