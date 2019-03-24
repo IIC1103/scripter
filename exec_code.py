@@ -145,6 +145,7 @@ def main():
         print(f'{"make NUMBER [project_name, ...]": <50} makes NUMBER '
               ' of compressed testcastes for each project_name, need a '
               'gen.py.  gen_flags.txt can be provided for altering generation')
+        print(f'{"create project_name": <50} creates an empty project ')
 
 
 if __name__ == "__main__":
