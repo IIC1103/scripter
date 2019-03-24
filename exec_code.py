@@ -87,6 +87,35 @@ def run_code(project_name: str):
     print(f'----> Project {repr(project_name)} compressed.')
 
 
+def create_proj(project: str, inputs: int):
+    if ' ' in project:
+        print('Invalid name, cannot contain spaces')
+    else:
+        path = os.path.join('resources', project)
+        ovewrite = True
+        if os.path.exists(path):
+            msg = ('That project already exists, would you like to '
+                   'overwrite it? [y/n]: ')
+            if input(msg) != 'y':
+                ovewrite = False
+        if ovewrite:
+            if os.path.exists(path):
+                shutil.rmtree(path)
+            os.mkdir(path)
+            os.mkdir(os.path.join(path, 'input'))
+            for i in range(inputs):
+                with open(os.path.join(path, 'input', f'input{i:0>2}.txt'),
+                          mode='w+'):
+                    pass
+            with open(os.path.join(path, 'gen.py'), mode='w+'):
+                pass
+            with open(os.path.join(path, 'code.py'), mode='w+'):
+                pass
+            with open(os.path.join(path, 'gen_flags.txt'), mode='w+'):
+                pass
+    print(f'{project!r} created.')
+
+
 def main():
     cmd = sys.argv[1]
     if cmd == 'inputs':
@@ -103,6 +132,8 @@ def main():
             gen_inputs(project, num)
         for project in sys.argv[3:]:
             run_code(project)
+    elif cmd == 'create':
+        create_proj(sys.argv[2], int(sys.argv[3]))
     else:
         print('Command not recognized:')
         print()
