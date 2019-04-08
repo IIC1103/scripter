@@ -1,4 +1,4 @@
-__author__ = 'Nicolas Quiroz'
+f__author__ = 'Nicolas Quiroz'
 
 
 from RestrictedPython import compile_restricted, RestrictingNodeTransformer
@@ -28,7 +28,7 @@ def gen_inputs(project_name: str, num: int = 10):
     if os.path.exists('input'):
         shutil.rmtree('input')
     os.mkdir('input')
-    if not os.path.exists('gen_flags.json'):
+    if not os.path.exists('gen_flags.txt'):
         print('No generation flags provided. Asumming None...')
 
         with open('gen_flags.txt', mode='w+'):
