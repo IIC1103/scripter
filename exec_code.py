@@ -1,6 +1,3 @@
-f__author__ = 'Nicolas Quiroz'
-
-
 from RestrictedPython import compile_restricted, RestrictingNodeTransformer
 from contextlib import redirect_stdout
 from zipfile import ZipFile
@@ -8,6 +5,8 @@ from zipfile import ZipFile
 import sys
 import os
 import shutil
+import builtins
+__author__ = 'Nicolas Quiroz'
 
 
 class OwnRestrictingNodeTransformer(RestrictingNodeTransformer):
@@ -15,7 +14,6 @@ class OwnRestrictingNodeTransformer(RestrictingNodeTransformer):
 
 
 def exec_code(code: str):
-    locals_: dict = {}
     result = compile_restricted(code, filename='<inline code>', mode='exec',
                                 policy=None)
     exec(result, globals(), globals())
@@ -44,17 +42,18 @@ def gen_inputs(project_name: str, num: int = 10):
 
 
 def execute_file(input_file: str, code_file: str, output_file: str, name: str):
+    open = builtins.open
     with open(input_file, encoding='utf-8') as in_file:
         sys.stdin = in_file
         message = f'Executing {name} with {input_file}'
         length = len(message)
         print('=' * (length // 2 - 1), message, '=' * (length // 2 - 1))
-
         with open(output_file, encoding='utf-8', mode='w+') as out_file:
             with redirect_stdout(out_file):
                 with open(code_file, encoding='utf-8') as code:
                     exec_code(code.read())
 
+        open = builtins.open
         with open(output_file, encoding='utf-8') as f:
             txt = f.read()
 
@@ -87,7 +86,7 @@ def run_code(project_name: str):
     print(f'----> Project {repr(project_name)} compressed.')
 
 
-def create_proj(project: str, inputs: int):
+def create_proj(project: str):
     if ' ' in project:
         print('Invalid name, cannot contain spaces')
     else:
@@ -103,10 +102,6 @@ def create_proj(project: str, inputs: int):
                 shutil.rmtree(path)
             os.mkdir(path)
             os.mkdir(os.path.join(path, 'input'))
-            for i in range(inputs):
-                with open(os.path.join(path, 'input', f'input{i:0>2}.txt'),
-                          mode='w+'):
-                    pass
             with open(os.path.join(path, 'gen.py'), mode='w+'):
                 pass
             with open(os.path.join(path, 'code.py'), mode='w+'):
@@ -133,7 +128,7 @@ def main():
         for project in sys.argv[3:]:
             run_code(project)
     elif cmd == 'create':
-        create_proj(sys.argv[2], int(sys.argv[3]))
+        create_proj(sys.argv[2])
     else:
         print('Command not recognized:')
         print()
@@ -145,8 +140,8 @@ def main():
         print(f'{"make NUMBER [project_name, ...]": <50} makes NUMBER '
               ' of compressed testcastes for each project_name, need a '
               'gen.py.  gen_flags.txt can be provided for altering generation')
-        print(f'{"create project_name NUMBER": <50} creates an empty project '
-              'with NUMBER of empty input files')
+        print(f'{"create project_name": <50} creates an empty project with all'
+              'the base files needed')
 
 
 if __name__ == "__main__":

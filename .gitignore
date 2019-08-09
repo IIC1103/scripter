@@ -2,3 +2,6 @@ resources/*
 !resources/.keep
 .mypy_cache
 .vscode
+.env
+.mypy_cache
+XDG_CACHE_HOME
