@@ -111,8 +111,24 @@ def create_proj(project: str):
     print(f'{project!r} created.')
 
 
+def print_help():
+    print(f'{"inputs NUMBER [project_name, ...]": <50} generates NUMBER '
+          'inputs for project_names, need a gen.py for each project_name. '
+          'gen_flags.txt can be provided')
+    print(f'{"zip [project_name, ...]": <50} generates a zip of testcases '
+          'for each project_name')
+    print(f'{"make NUMBER [project_name, ...]": <50} makes NUMBER '
+          ' of compressed testcastes for each project_name, need a '
+          'gen.py.  gen_flags.txt can be provided for altering generation')
+    print(f'{"create project_name": <50} creates an empty project with all'
+          'the base files needed')
+
+
 def main():
-    cmd = sys.argv[1]
+    if not len(sys.argv) - 1:
+        cmd = 'help'
+    else:
+        cmd = sys.argv[1]
     if cmd == 'inputs':
         num = int(sys.argv[2])
         for project in sys.argv[3:]:
@@ -129,19 +145,12 @@ def main():
             run_code(project)
     elif cmd == 'create':
         create_proj(sys.argv[2])
+    elif cmd == 'help':
+        print_help()
     else:
         print('Command not recognized:')
         print()
-        print(f'{"inputs NUMBER [project_name, ...]": <50} generates NUMBER '
-              'inputs for project_names, need a gen.py for each project_name. '
-              'gen_flags.txt can be provided')
-        print(f'{"zip [project_name, ...]": <50} generates a zip of testcases '
-              'for each project_name')
-        print(f'{"make NUMBER [project_name, ...]": <50} makes NUMBER '
-              ' of compressed testcastes for each project_name, need a '
-              'gen.py.  gen_flags.txt can be provided for altering generation')
-        print(f'{"create project_name": <50} creates an empty project with all'
-              'the base files needed')
+        print_help()
 
 
 if __name__ == "__main__":
