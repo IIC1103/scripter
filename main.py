@@ -6,7 +6,7 @@ import sys
 import os
 import shutil
 import builtins
-__author__ = ['Nicolas Quiroz', 'Alfonso Irarrázaval']
+__authors__ = ['Nicolas Quiroz', 'Alfonso Irarrázaval']
 
 
 def exec_code(code: str):
