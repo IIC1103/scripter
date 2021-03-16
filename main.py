@@ -6,11 +6,7 @@ import sys
 import os
 import shutil
 import builtins
-__author__ = 'Nicolas Quiroz'
-
-
-class OwnRestrictingNodeTransformer(RestrictingNodeTransformer):
-    pass
+__author__ = ['Nicolas Quiroz', 'Alfonso Irarrázaval']
 
 
 def exec_code(code: str):
