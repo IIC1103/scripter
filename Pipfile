@@ -13,4 +13,4 @@ restrictedpython = "==4.0b8"
 faker = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
