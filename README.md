@@ -4,7 +4,7 @@ A python sandbox for making testcases
 
 Requirements:
 
-* Python 3.6
+* Python 3.8.\*
 * Pipenv
 
 On command line:
@@ -19,7 +19,7 @@ Then
 pipenv install --dev
 ```
 
-And you are ready for using it!
+And you are ready to start!
 
 ## Usage
 
@@ -57,6 +57,5 @@ print(sample_input)
 -`gen.py`: This is the file that is run for generating the input text files. Use `print()` for the text to be written on the input file.
 
 **All projects must me stored under the folder `Resources` and created**
-
 
 For all the commands, run `python main.py help`
