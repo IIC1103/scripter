@@ -1,3 +1,5 @@
+legacy/*
+
 resources/*
 !resources/.keep
 .mypy_cache
