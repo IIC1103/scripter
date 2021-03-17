@@ -1,0 +1,6 @@
+{
+    "tests_dir": "testcases",
+    "projects_dir": "projects",
+    "sort": true,
+    "delete_old": true
+}
