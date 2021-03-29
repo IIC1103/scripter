@@ -6,7 +6,7 @@ from json import load
 root_path = Path(__file__).parent.parent.absolute()
 
 class Generator:
-    def __init__(self, project: str = None, sort: bool = True, root: str =  root_path) -> None:
+    def __init__(self, sort: bool = True, root: str =  root_path) -> None:
         self.root = root
         self.sort = sort
 
@@ -19,8 +19,8 @@ class Generator:
         self.projects = self.load_projects()
 
     @staticmethod
-    def request_confirmation():
-        while (answer := input("¿Estás segur@? [Y/N] ").lower()) not in ['y', 'n']:
+    def request_confirmation(message: str):
+        while (answer := input(f"{message} [Y/N] ").lower()) not in ['y', 'n']:
             print("Opción no válida, intente nuevamente:")
         return answer == 'y'
 
@@ -64,5 +64,13 @@ class Generator:
 
     def delete_project(self, name: str) -> None:
         if path.exists(to_remove := path.join(self.tests_dir, name)):
-            if self.request_confirmation():
+            if self.request_confirmation("¿Estás segur@?"):
                 rmtree(to_remove)
+
+    def generate_testcases(self, project: str):
+        if project not in self.projects.keys():
+            if self.request_confirmation(f"Proyecto {project} no existe, ¿desea crearlo?"):
+                self.new_project(project)
+        else:
+            print(self.root)
+            
